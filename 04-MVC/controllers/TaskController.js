@@ -24,4 +24,12 @@ module.exports = class TaskController{
         //console.log(tasks);
         res.render('tasks/all', {tasks});
     }
+
+    static async removeTask(req, res){
+        const { id } = req.body;
+
+        await Task.destroy({ where: { id:id}});
+        
+        res.redirect('/tasks');
+    }
 }
