@@ -1,5 +1,5 @@
 const express = require('express');
-const expnbs = require('express-handlebars');
+const exphbs = require('express-handlebars');
 
 // Modulos
 const app = express();
@@ -18,7 +18,7 @@ app.use(express.json());
 app.use('/tasks', tasksRoutes);
 
 // HandleBars - VIEW ENGINE
-app.engine('handlebars', expnbs.engine());
+app.engine('handlebars', exphbs.engine());
 app.set('view engine', 'handlebars');
 
 // Connection with mysql and start server on port 3000
