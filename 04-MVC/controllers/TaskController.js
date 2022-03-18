@@ -17,7 +17,11 @@ module.exports = class TaskController{
         res.redirect('/tasks');
     }
 
-    static showTask(req, res){
-        res.render('tasks/all')
+    static async showTask(req, res){
+        const { title, description, done } = req.body;
+
+        const tasks =  await Task.findAll({raw: true});
+        //console.log(tasks);
+        res.render('tasks/all', {tasks});
     }
 }
