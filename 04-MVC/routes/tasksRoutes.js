@@ -8,5 +8,7 @@ router.get('/add', TaskController.createTask);
 router.post('/add', TaskController.createTaskSave);
 router.post('/remove', TaskController.removeTask);
 router.get('/', TaskController.showTask);
+router.get('/edit/:id', TaskController.updateTask);
+router.post('/edit/:id', TaskController.updateTaskSave);
 
 module.exports = router;
