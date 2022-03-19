@@ -2,7 +2,12 @@
 <ul class="task-list">
   {{#each tasks}}
     <li>
-        <a class="title" href="/">{{this.title}}</a>
+        {{#if this.done}}
+            <a class="title done" href="/">{{this.title}}</a>
+        {{else}}
+            <a class="title" href="/">{{this.title}}</a>
+        {{/if}}
+
         <div class="actions">
             <form action="/tasks/updatestatus" method="post">
                <input type="hidden" name="id" value="{{this.id}}"> 
