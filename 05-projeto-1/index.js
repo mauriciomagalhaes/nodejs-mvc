@@ -1,24 +1,26 @@
+// Modules
 const express = require('express');
 const exphbs = require('express-handlebars');
 const session = require('express-session');
 const FileStore = require('session-file-store')(session);
 const flash = require('express-flash');
 
-// Express
+// Instances and variables
 const app = express();
 
 // Connection to database
 const conn = require('./db/conn');
 
-// Models
+// Models db
 const Tought = require('./models/Tought');
 const User = require('./models/User');
 
 // Importing routes
-const toughtsRoutes = require('./routes/toughtsRoute');
+const toughtsRoutes = require('./routes/toughtsRoutes');
+const authRoutes = require('./routes/authRoutes');
 
 // Importing controllers
-const ToughtController = require('./controllers/ToughtsController');
+const ToughtController = require('./controllers/ToughtsController');                
 
 // Handlebars
 app.engine('handlebars', exphbs.engine());
@@ -57,8 +59,10 @@ app.use((req, res, next) => {
 })
 
 // Routes
-app.use('/toughts', toughtsRoutes)
-app.use('/', ToughtController.showToughts)
+app.use('/toughts', toughtsRoutes);
+app.use('/auth', authRoutes);
+
+app.get('/', ToughtController.showToughts);
 
 // Connection with mysql and start server on port 3000
 conn
