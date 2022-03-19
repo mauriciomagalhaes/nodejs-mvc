@@ -4,10 +4,21 @@ const session = require('express-session');
 const FileStore = require('session-file-store')(session);
 const flash = require('express-flash');
 
+// Express
 const app = express();
 
 // Connection to database
 const conn = require('./db/conn');
+
+// Models
+const Tought = require('./models/Tought');
+const User = require('./models/User');
+
+// Importing routes
+const toughtsRoutes = require('./routes/toughtsRoute');
+
+// Importing controllers
+const ToughtController = require('./controllers/ToughtsController');
 
 // Handlebars
 app.engine('handlebars', exphbs.engine());
@@ -45,9 +56,14 @@ app.use((req, res, next) => {
     next();
 })
 
+// Routes
+app.use('/toughts', toughtsRoutes)
+app.use('/', ToughtController.showToughts)
+
 // Connection with mysql and start server on port 3000
 conn
     .sync()
+    //.sync({force: true})
     .then(() => {
         app.listen(3000, () => {
             console.log('Servidor rodando na porta 3000');
