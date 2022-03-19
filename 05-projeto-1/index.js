@@ -1,5 +1,5 @@
 const express = require('express');
-const expnbs = require('express-handlebars');
+const exphbs = require('express-handlebars');
 const conn = require('./db/conn');
 const app = express();
 
@@ -9,7 +9,7 @@ app.use(express.static('public'))
 app.use(express.json());
 
 //handlebars
-app.engine('handlebars', expnbs.engine());
+app.engine('handlebars', exphbs.engine());
 app.set('view engine', 'handlebars');
 
 // listen to port
