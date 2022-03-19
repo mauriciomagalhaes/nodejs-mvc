@@ -12,4 +12,4 @@ try{
     console.log(`Não foi possivel conectar ao banco de dados: ${err}`)
 }
 
-exports.default = sequelize;
+module.exports = sequelize;
