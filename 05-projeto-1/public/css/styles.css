@@ -47,6 +47,75 @@
     padding: 2em
 }
 
+/*MESSAGE*/
+.message{
+    padding: 1em;
+    color: #004085;
+    background-color: #cce5ff;
+    border: 1px solid #b8daff;
+    border-radius: 5px;
+    text-align: center;
+    margin: 0 auto 2em;
+    max-width: 60%;
+}
+
+/* Login e Register */
+.auth-container{
+    display: flex;
+    flex-direction: column;
+    max-width: 450px;
+    margin: 0 auto;
+}
+
+.auth-container h2{
+    margin-bottom: 1em;
+    color: #fff;
+    border-left: 4px solid #f6982d;
+    padding: 0.3em;
+    width: 100px;
+}
+
+.auth-container a{
+    color: #f6982d;  
+}
+
+.form-control{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1em;
+}
+.form-control label{
+    font-weight: bold;
+    margin-bottom: 0.5em;
+}
+
+.form-control input,
+.form-control textarea{
+    border: 1px solid #f6982d;
+    border-radius: 3px;
+    padding: 7px;
+}
+
+form input[type='submit'], 
+.btn{
+    background-color: transparent;
+    border: 2px solid #f6982d;
+    color: #f6982d;
+    padding: 0.5em 1.2em;
+    border-radius: 3px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-bottom: 1em;
+    text-decoration: none;
+    transition: 0.5s;
+}
+
+form input[type='submit']:hover, 
+.btn:hover{
+    background-color: #f6982d;
+    color: #fff;
+}
+
 /* Footer */ 
 footer {
     height: 150px;
@@ -54,6 +123,7 @@ footer {
     justify-content: center;
     align-items: center;
     border-top: 1px solid #f6982d;
+
 }
 
 footer span {
