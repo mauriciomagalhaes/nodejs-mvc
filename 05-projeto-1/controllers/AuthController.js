@@ -9,6 +9,34 @@ module.exports = class AuthController{
         res.render('auth/login');
     }
 
+    static async loginPost(req, res){
+        const { email, password } = req.body;
+        // Check if e-mail exists
+        const user = await User.findOne({where: {email: email}});
+
+        if(!user){
+            req.flash('message', 'E-mail não existe!');
+            res.render('auth/login');
+            return;
+        }
+        // Check if password is correct
+        const passwordMatch = bcrypt.compareSync(password, user.password);
+
+        if(!passwordMatch){
+            req.flash('message', 'Senha incorreta!');
+            res.render('auth/login');
+            return;
+        }
+        // Initialize session
+        req.session.userid = user.id;
+        // Message
+        req.flash('message', 'Autenticado com sucesso!');
+        // Save user in session
+        req.session.save(() => {
+            res.redirect('/');
+        })
+    }
+
     static register(req, res){
         res.render('auth/register');
     }
@@ -60,5 +88,6 @@ module.exports = class AuthController{
             res.redirect('/');
         })
     }
+ 
     
 }
