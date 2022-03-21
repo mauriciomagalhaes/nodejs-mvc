@@ -3,7 +3,18 @@ const User = require('../models/User');
 
 module.exports = class ToughtController{
     static async showToughts(req, res){
-        res.render('toughts/home')
+
+        const toughtsData = await Tought.findAll({
+            include: User,
+        })
+
+        //console.log(toughtsData)
+
+        const toughts =  toughtsData.map(result => result.get({ plain: true }))
+
+        console.log(toughts)
+
+        res.render('toughts/home', { toughts })
     }
 
     static async dashboard(req, res){
@@ -76,6 +87,8 @@ module.exports = class ToughtController{
 
         const tought = await Tought.findOne({raw: true, where: { id: id}})
 
+        //console.log(tought)
+
         res.render('toughts/edit', { tought })
     }
 
@@ -83,7 +96,7 @@ module.exports = class ToughtController{
         const { id, title } = req.body
         
         try{
-            await Tought.update({title}, {where: { id: id }})
+            await Tought.update({title}, {where: { id }})
 
             req.flash('message', 'Pensamento atualizado com sucesso!')
 
