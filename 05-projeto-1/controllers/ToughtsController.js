@@ -70,4 +70,28 @@ module.exports = class ToughtController{
             console.log('Aconteceu um erro ao remover o pensamento', error)
         }
     }
+
+    static async updateTought(req, res){
+        const id = req.params.id
+
+        const tought = await Tought.findOne({raw: true, where: { id: id}})
+
+        res.render('toughts/edit', { tought })
+    }
+
+    static async updateToughtSave(req, res){
+        const { id, title } = req.body
+        
+        try{
+            await Tought.update({title}, {where: { id: id }})
+
+            req.flash('message', 'Pensamento atualizado com sucesso!')
+
+            req.session.save(() => {
+                res.redirect('/toughts/dashboard')
+            })
+        }catch (error){
+            console.log('Aconteceu um erro ao atualizar o pensamento', error)
+        }
+    }
 }

@@ -9,7 +9,7 @@
             <li>
                 <span class="label">{{this.title}}</span>
                 <span class="actions">
-                    <a class="btn" href="/" >Editar</a>
+                    <a class="btn" href="/toughts/edit/{{this.id}}" >Editar</a>
                     <form action="/toughts/remove" method="POST">
                         <input type="hidden" name="id" value="{{this.id}}">
                         <input class="btn" type="submit" value="Excluir" >
