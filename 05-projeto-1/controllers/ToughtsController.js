@@ -1,20 +1,48 @@
 const Tought = require('../models/Tought');
 const User = require('../models/User');
 
+// Operators Querys
+const { Op } = require('sequelize');
+
 module.exports = class ToughtController{
     static async showToughts(req, res){
+        
+        let search = ''
+
+        if(req.query.search){
+            search = req.query.search
+        }
+        //console.log(search)
+
+        let order = 'DESC'
+
+        if(req.query.order === 'old'){
+            order = 'ASC'
+        } else {
+            order = 'DESC'
+        }
 
         const toughtsData = await Tought.findAll({
             include: User,
+            where: {
+                title: {[Op.like]: `%${search}%`}
+            },
+            order: [['createdAt', order]]
         })
 
         //console.log(toughtsData)
 
         const toughts =  toughtsData.map(result => result.get({ plain: true }))
 
-        console.log(toughts)
+        let toughtsQty =  toughts.length
 
-        res.render('toughts/home', { toughts })
+        if (toughtsQty == 0){
+            toughtsQty  = false;
+        }
+
+        //console.log(toughts)
+
+        res.render('toughts/home', { toughts, search, toughtsQty })
     }
 
     static async dashboard(req, res){
@@ -107,4 +135,5 @@ module.exports = class ToughtController{
             console.log('Aconteceu um erro ao atualizar o pensamento', error)
         }
     }
+
 }

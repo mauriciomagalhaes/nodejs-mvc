@@ -194,31 +194,31 @@ form input[type='submit']:hover,
     text-align: center;
 }
 
-.home-header h1{
+.home-header h1 {
     margin-bottom: 1em;
 }
 
-.home-header span{
+.home-header span {
     color: #f6982d;
 }
 
 .home-header p, 
-.home-header form{
+.home-header form {
     margin-bottom: 1.2em;
 }
 
-.home-header input{
+.home-header input {
     border: none;
     border-bottom: 1px solid #fff;
     padding: .5em;
     margin-right: 1em;
 }
 
-.home-header input[type='text']{
+.home-header input[type='text'] {
     width: 60%;
 }
 
-.home-header input::placeholder{
+.home-header input::placeholder {
     color: #fff;
 }
 
@@ -235,7 +235,7 @@ form input[type='submit']:hover,
     font-weight: bold;
 }
 
-.order-container {
+.order-container form{
     margin: 0;
 }
 
@@ -244,6 +244,37 @@ form input[type='submit']:hover,
     border: none;
     cursor: pointer;
 }
+
+.order-container button:hover,
+.order-container i:hover, 
+.order-container a:hover{
+    color: #f6982d;
+}
+
+
+.order-container button,
+.order-container i, 
+.order-container a{
+    margin: 0 7px
+}
+
+.toughts-container figure{
+    border-bottom: 1px solid #333;
+    padding: .5em;
+    max-width: 50%;
+    margin: 0 auto 1em;
+}
+
+.toughts-container blockquote{
+    font-style: italic;
+    font-size: 2em;
+    margin-bottom: .4em;
+}
+
+.toughts-container span{
+    color: #f6982d;
+}
+
 /* Footer */ 
 footer {
     height: 150px;
