@@ -39,11 +39,20 @@ module.exports = class ProductController {
         });
     }
 
-    static async updateProduct(req, res) {
+/*     static async updateProduct(req, res) {
         const { name, image, price, description } = req.body;
         const product = new Product(name, image, price, description);
         //console.log(product);
-        await Product.updateProductById(req.body.id, product);
+        await product.updateProductById(req.body.id)
+        //await Product.updateProductById(req.body.id, product);
         res.redirect('/products');
     }
+*/
+    static async updateProduct(req, res) {
+        const { id, name, image, price, description } = req.body;
+        const product = new Product(name, image, price, description);
+        await product.updateProductById(id);
+        res.redirect('/products');
+    }
+
 }

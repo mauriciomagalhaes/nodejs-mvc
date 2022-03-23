@@ -39,7 +39,7 @@ class Products {
         return product;
     }
 
-    static async updateProductById(id, product) {
+/*     static async updateProductById(id, product) {
         const updatedProduct = await conn.db().collection('products').updateOne({ _id: ObjectId(id) },
          { $set: { 
                     name: product.name, 
@@ -47,8 +47,13 @@ class Products {
                     price: product.price, 
                     description: product.description } });
         return updatedProduct;
-    }
+    } */
     
+    updateProductById(id) {
+        conn.db().collection('products').updateOne({ _id: ObjectId(id) },
+         { $set: this});
+        return;
+    }
 }
 
 module.exports = Products;
