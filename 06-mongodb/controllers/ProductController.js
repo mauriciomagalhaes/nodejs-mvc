@@ -38,4 +38,12 @@ module.exports = class ProductController {
             res.render('products/edit', { product });
         });
     }
+
+    static async updateProduct(req, res) {
+        const { name, image, price, description } = req.body;
+        const product = new Product(name, image, price, description);
+        //console.log(product);
+        await Product.updateProductById(req.body.id, product);
+        res.redirect('/products');
+    }
 }

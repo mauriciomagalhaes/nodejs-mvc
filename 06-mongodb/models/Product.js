@@ -38,6 +38,16 @@ class Products {
         const product = await conn.db().collection('products').findOne({ _id: ObjectId(id) });
         return product;
     }
+
+    static async updateProductById(id, product) {
+        const updatedProduct = await conn.db().collection('products').updateOne({ _id: ObjectId(id) },
+         { $set: { 
+                    name: product.name, 
+                    image: product.image, 
+                    price: product.price, 
+                    description: product.description } });
+        return updatedProduct;
+    }
     
 }
 
