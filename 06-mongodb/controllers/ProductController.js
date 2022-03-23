@@ -1,8 +1,12 @@
 const Product = require('../models/Product');
 
 module.exports = class ProductController {
-    static showProducts(req, res) {
-        res.render('products/all')
+    static async showProducts(req, res) {
+        const products = await Product.getProducts().then(products => {
+            res.render('products/all', { products });
+        });
+        //console.log(products);
+        //res.render('products/all', { products });
     }
 
     static createProduct(req, res) {
@@ -10,11 +14,28 @@ module.exports = class ProductController {
     }	
 
     static createProductPost(req, res) {
-        const { name, price, description } = req.body;
+        const { name, image, price, description } = req.body;
 
-        const product = new Product(name, price, description);
+        const product = new Product(name, image, price, description);
+
         product.save();
     
         res.redirect('/products');
+    }
+    static async getProduct(req, res) {
+        const product = await Product.getProductById(req.params.id).then(product => {
+            res.render('products/product', { product });
+        });
+    }
+  
+    static async removeProduct(req, res) {
+        await Product.removeProductById(req.params.id).then(() => {
+            res.redirect('/products');
+        });
+    }
+    static async editProduct(req, res) {
+        const product = await Product.editProductById(req.params.id).then(product => {
+            res.render('products/edit', { product });
+        });
     }
 }
