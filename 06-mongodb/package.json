@@ -3,12 +3,12 @@
     "express": "^4.17.3",
     "express-handlebars": "^6.0.3",
     "mongodb": "^4.4.1",
+    "mongoose": "^6.2.8",
     "nodemon": "^2.0.15"
   },
   "name": "06-mongodb",
   "version": "1.0.0",
   "main": "index.js",
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon ./index.js localhost 3000"
