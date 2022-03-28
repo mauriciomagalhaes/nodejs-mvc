@@ -102,9 +102,18 @@ module.exports = class UserController{
         //user.password = undefined;
         res.status(200).json(user);
     }
-    
+
     static async editUser(req, res){
-       return res.status(200).json({message: 'Editar usuário'});
+        //return res.status(200).json({message: 'Editar usuário'});
+
+        const id = req.params.id;
+        console.log(id); 
+        const user = await User.findById(id);
+        //console.log(user)
+        if(!user){
+          res.status(422).json({message: 'Usuário não encontrado!'});
+          return
+        }
     }
 }
 

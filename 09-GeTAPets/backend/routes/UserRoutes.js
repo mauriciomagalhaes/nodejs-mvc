@@ -5,6 +5,7 @@ const UserController = require('../controllers/UserController');
 // Middleware to validate token
 const verifyToken = require('../helpers/verify-token');
 
+// Routes
 router.post('/register', UserController.register);
 router.post('/login', UserController.login);
 router.get('/checkuser', UserController.checkUser);
