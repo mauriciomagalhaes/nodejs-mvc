@@ -114,9 +114,9 @@ module.exports = class UserController{
     static async editUser(req, res){
         const  { name, email, phone, password, confirmpassword } = req.body;
 
-        // Get user auth
+        // Get user auth by token
         const user = await getUserByToken(getToken(req));
-        console.log(user)
+        //console.log(user)
 
         let image = ''
 
@@ -125,30 +125,46 @@ module.exports = class UserController{
             return res.status(422).json({message: 'O nome é obrigatório!'});
         }
 
+        //user.name = name;
+
         if(!email){
             return res.status(422).json({message: 'O email é obrigatório!'});
         }
 
         // check if email already exists
         const userExist = await User.findOne({email:email});
-        console.log(user.email)
-        console.log(email)
+
         if(user.email !== email && userExist){
             return res.status(422).json({message: 'Favor utilizar outro email!'});
         }
-        
+
         user.email = email
 
         if(!phone){
             return res.status(422).json({message: 'O telefone é obrigatório!'});
         }
 
-        if(!password){
-            return res.status(422).json({message: 'A senha é obrigatória!'});
-        }
+        user.phone = phone
 
-        if(!confirmpassword){
-            return res.status(422).json({message: 'A confirmação de senha é obrigatória!'});
+        if(password != confirmpassword){
+            return res.status(422).json({message: 'As senhas não conferem!'});
+        } else if (password === confirmpassword && password !== null){
+            //Create a password hash
+            const salt = await bcrypt.genSalt(12);
+            const passwordHash = await bcrypt.hash(password, salt);
+            user.password = passwordHash
+        }
+        try {
+            // Return user updated data
+            await User.findOneAndUpdate(
+                { _id: user._id }, 
+                { $set: user },
+                { new: true },
+            );
+            res.status(200).json({message: 'Usuário atualizado com sucesso!'});
+
+        } catch (error) {
+            return res.status(500).json({message: `error: ${error}`});	
         }
     }
 }
