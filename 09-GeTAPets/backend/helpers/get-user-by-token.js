@@ -10,7 +10,7 @@ const getUserByToken = async (token) => {
     const decoded = jwt.decode(token, 'nossosupersecreto');
     const userId = decoded.id;
 
-    const user = await User.findById({_id:userId});
+    const user = await User.findOne({_id:userId});
 
     return user;
 }

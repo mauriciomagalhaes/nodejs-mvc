@@ -114,9 +114,9 @@ module.exports = class UserController{
     static async editUser(req, res){
         const  { name, email, phone, password, confirmpassword } = req.body;
 
-        // Check if user exists
-        const user = getUserByToken(getToken(req));
-
+        // Get user auth
+        const user = await getUserByToken(getToken(req));
+        console.log(user)
 
         let image = ''
 
@@ -130,13 +130,13 @@ module.exports = class UserController{
         }
 
         // check if email already exists
-        const userExist = await User.findOne(email);
-        console.log(userExist)
+        const userExist = await User.findOne({email:email});
         console.log(user.email)
+        console.log(email)
         if(user.email !== email && userExist){
             return res.status(422).json({message: 'Favor utilizar outro email!'});
         }
-
+        
         user.email = email
 
         if(!phone){

@@ -3,11 +3,13 @@ const getToken = require('./get-token');
 
 //Middleware to validate token
 const checkToken = (req, res, next) => {
+    //console.log(req)
 
     if(!req.headers.authorization){
         return res.status(401).json({message: 'Nenhum token foi informado!'});
     }
 
+    //get token from header
     const token = getToken(req);
 
     if(!token){
