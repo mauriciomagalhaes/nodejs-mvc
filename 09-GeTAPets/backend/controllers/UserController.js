@@ -149,7 +149,7 @@ module.exports = class UserController{
         if(password != confirmpassword){
             return res.status(422).json({message: 'As senhas não conferem!'});
         } else if (password === confirmpassword && password !== null){
-            //Create a password hash
+            // Create a password hash
             const salt = await bcrypt.genSalt(12);
             const passwordHash = await bcrypt.hash(password, salt);
             user.password = passwordHash
