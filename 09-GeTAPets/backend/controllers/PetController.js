@@ -63,9 +63,19 @@ module.exports = class PetController{
             return res.status(500).json({ message: 'Erro ao criar pet' });
         }
     }
+    
     static async getAll(req, res){
         const pets = await Pet.find();
         return res.status(200).json({ pets });
+    }
+
+    static async getAllUserPets(req, res){
+        const token = getToken(req);
+        const user = await getUserByToken(token);
+        //const pets = await Pet.find({ user: { _id: user._id } });
+        const pets = await Pet.find({'user._id': user._id }).sort('-createdAt');
+        return res.status(200).json(pets);
+        //return res.status(200).json({pets});
     }
 
 }
