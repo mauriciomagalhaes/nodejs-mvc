@@ -4,7 +4,7 @@ const Pet = require('../models/Pet');
 // Middleware
 const getToken = require('../helpers/get-token');
 const getUserByToken = require('../helpers/get-user-by-token');
-const match = require('nodemon/lib/monitor/match');
+//const match = require('nodemon/lib/monitor/match');
 
 module.exports = class PetController{
 
@@ -58,24 +58,24 @@ module.exports = class PetController{
 
         try {
             const newPet = await pet.save();
-            return res.status(201).json({ message: 'Pet criado com sucesso', newPet });
+            res.status(201).json({ message: 'Pet criado com sucesso', newPet });
         } catch (error) {
-            return res.status(500).json({ message: 'Erro ao criar pet' });
+            res.status(500).json({ message: 'Erro ao criar pet' });
         }
     }
     
     static async getAll(req, res){
         const pets = await Pet.find();
-        return res.status(200).json({ pets });
+        res.status(200).json({ pets });
     }
 
     static async getAllUserPets(req, res){
+        // Get user token
         const token = getToken(req);
         const user = await getUserByToken(token);
-        //const pets = await Pet.find({ user: { _id: user._id } });
+        // Get pets by user
         const pets = await Pet.find({'user._id': user._id }).sort('-createdAt');
-        return res.status(200).json(pets);
-        //return res.status(200).json({pets});
+        res.status(200).json({ pets });
     }
 
 }

@@ -116,7 +116,7 @@ module.exports = class UserController{
 
         // Get user auth by token
         const user = await getUserByToken(getToken(req));
-        //console.log(user)
+        console.log(user)
 
         let image = ''
 
