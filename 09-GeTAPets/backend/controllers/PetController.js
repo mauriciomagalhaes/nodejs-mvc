@@ -180,4 +180,69 @@ module.exports = class PetController{
         return res.status(200).json({message: 'Pet atualizado com sucesso!' })
     }
 
+    static async schedule(req, res){
+
+        const { id } = req.params
+
+        const pet = await Pet.findOne({_id: id})
+
+        // If pet exists
+        if(!pet){
+            return res.status(404).json({ message: 'Pet não encontrado' });
+        }
+
+        const token = getToken(req);
+        const user = await getUserByToken(token);
+
+        //If Pet pertence to user 
+        if(pet.user._id.equals(user._id)) {
+            return res.status(422).json({ message: 'Você não pode agendar uma visita com o seu pet' })
+        }
+        
+        if(pet.adopter){
+            if(pet.adopter._id.equals(user._id)){
+                return res.status(422).json({ message: 'você já agendou uma visita para este pet'})
+            }
+        }
+
+        // Add user to pet
+
+        pet.adopter = {
+            _id: user._id,
+            name: user.name,
+            image: user.image
+        }
+        await Pet.findByIdAndUpdate(id, pet)
+        res.status(200).json({ message: `A visita foi agendado com sucesso, entre em contato com ${pet.user.name} pelo telefone ${pet.user.phone}`})
+        
+    }
+
+    static async concludeAdoption(req, res){
+
+        const { id } = req.params
+
+        const pet = await Pet.findOne({_id: id})
+
+        // If pet exists
+        if(!pet){
+            return res.status(404).json({ message: 'Pet não encontrado' });
+        }
+        
+        // Get user token	
+        const token = await getToken(req);
+        // Get user by token
+        const user = await getUserByToken(token)
+        
+        //If Pet pertence to user 
+        if(pet.user._id.toString() !== user._id.toString()) {
+            return res.status(422).json({ message: 'Pet não encontrado ou não pertence ao usuário' })
+        }
+        
+        pet.available = false;
+
+        await Pet.findByIdAndUpdate(id, pet)
+        res.status(200).json({
+            message: "PArabéns! o ciclo de adoção foi finalizado com sucesso!"
+        })
+    }
 }
