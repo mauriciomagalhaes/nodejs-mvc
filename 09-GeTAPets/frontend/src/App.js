@@ -1,7 +1,5 @@
 import  {BrowserRoute as Router, Switch, Route} from 'react-router-dom';
 
-
-
 function App() {
   return (
     <Router>
@@ -13,6 +11,7 @@ function App() {
 
         </Route>        
         <Route path='/'>
+          
         </Route>
       </Switch>
     </Router>
