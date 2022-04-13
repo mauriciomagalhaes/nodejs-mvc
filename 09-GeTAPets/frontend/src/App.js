@@ -14,13 +14,13 @@ function App() {
   return (
     <Router>
       <Navbar />
-      <Container>
-        <Routes> {/* switch */}
-          <Route path="/" element={<Home/>} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />   
-        </Routes>
-      </Container>
+        <Container>
+          <Routes> {/* switch */}
+            <Route path="/" element={<Home/>} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />   
+          </Routes>
+        </Container>
       <Footer />
     </Router>
   );
