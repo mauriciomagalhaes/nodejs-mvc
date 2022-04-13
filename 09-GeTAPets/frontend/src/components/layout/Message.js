@@ -10,9 +10,9 @@ function Message(){
 
     useEffect(() => {
         bus.addListener('flash', ({ message, type }) => {
+            setVisibility(true);
             setMessage(message);
             setType(type);
-            setVisibility(true);
 
             setTimeout(()=>{
                 setVisibility(false);

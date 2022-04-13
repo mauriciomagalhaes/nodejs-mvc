@@ -18,8 +18,8 @@ export default function useAuth() {
                 return response.data
             });
         } catch (error) {
-            let msgText = error.response.data.message
-            let msgType = 'error'
+            msgText = error.response.data.message
+            msgType = 'error'
         }
         setFlashMessage(msgText, msgType);
     }
