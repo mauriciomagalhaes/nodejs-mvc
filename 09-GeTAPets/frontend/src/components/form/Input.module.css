@@ -12,8 +12,13 @@
 
 .form_control input{
     padding: .7em;
-    border: 1px solid #777;
-    border-radius: .5em;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+}
+
+.form_control input:focus{
+    outline: none;
 }
 
 .form_control input::placeholder{

@@ -5,23 +5,27 @@ import Input from '../../form/Input';
 import {Link} from 'react-router-dom';
 
 import styles from '../../form/Form.module.css';
-import userEvent from '@testing-library/user-event';
+
 
 function Register(){
 
     const [user, setUser] = useState({});
- 
+    //console.log(user);
+
     function handleChange(e){
-        setUser({
-            ...user,
-            [e.target.name]: e.target.value
-        });
+       setUser({...user,[e.target.name]: e.target.value});
+    }
+
+    function handleSubmit(e){
+        e.preventDefault();
+        console.log(user);
+        //Send user to server bd
     }
 
     return (
         <section className={styles.form_container}>
             <h1>Registrar</h1>
-            <form >
+            <form onSubmit={handleSubmit}>
                 <Input
                     text="Nome"
                     type="text"
