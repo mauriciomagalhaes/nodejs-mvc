@@ -1,15 +1,18 @@
 
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 
 import Input from '../../form/Input';
 import {Link} from 'react-router-dom';
 
 import styles from '../../form/Form.module.css';
 
+/* Context */
+import { Context } from '../../../context/UserContext';
 
 function Register(){
 
     const [user, setUser] = useState({});
+    const { register } = useContext(Context);
     //console.log(user);
 
     function handleChange(e){
@@ -18,7 +21,8 @@ function Register(){
 
     function handleSubmit(e){
         e.preventDefault();
-        console.log(user);
+        //console.log(user);
+        register(user);
         //Send user to server bd
     }
 
