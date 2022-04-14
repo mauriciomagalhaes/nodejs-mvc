@@ -17,8 +17,7 @@ export default function useAuth() {
             setAuthenticated(true);
         }
     }, []);
-
-
+    
     // Register user
     async function register(user){
 
