@@ -17,7 +17,7 @@ export default function useAuth() {
             setAuthenticated(true);
         }
     }, []);
-    
+
     // Register user
     async function register(user){
 
@@ -45,5 +45,16 @@ export default function useAuth() {
         navigate('/');
     }
 
-    return { authenticated, register }
+    function logout(){
+        const msgText = 'Logout realizado com sucesso!';
+        const msgType = 'sucess';
+        setAuthenticated(false);
+        localStorage.removeItem('token');
+        api.defaults.headers.Authrization = undefined;
+        navigate('/');
+
+        setFlashMessage(msgText, msgType);
+    }
+
+    return { authenticated, register, logout }
 }
