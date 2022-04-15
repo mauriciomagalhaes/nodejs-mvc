@@ -25,6 +25,7 @@
 
 .navbar li:hover{
     background-color: #16479d;
+    color: #fff;
 }
 
 .navbar li:hover > a{
