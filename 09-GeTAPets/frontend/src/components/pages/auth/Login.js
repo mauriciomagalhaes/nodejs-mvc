@@ -3,17 +3,29 @@ import Input from '../../form/Input';
 
 import styles from '../../form/Form.module.css';
 
+import { Link } from 'react-router-dom';
+
 /* Context */
 import { Context } from '../../../context/UserContext';
 
 function Login(){
 
-    function handleChange(e){}
+    const [user, setUser] = useState({});
+    const { login } = useContext(Context);
+
+    function handleChange(e){
+        setUser({...user,[e.target.name]: e.target.value});
+    }
+
+    function handleSubmit(e){
+        e.prevendDefault();
+        login(user);
+    }
 
     return (
         <section className={styles.form_container}>
             <h1>Login</h1>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <Input
                     text="E-mail"
                     type="email"
@@ -28,6 +40,10 @@ function Login(){
                     placeholder="Digite sua senha"
                     handleOnChange={handleChange}
                 />
+                <input type="submit" value="Entrar" />
+                <p>
+                    Não tem uma conta? <Link to="/register">Cadastre-se</Link>
+                </p>
             </form>
                 
         </section>
