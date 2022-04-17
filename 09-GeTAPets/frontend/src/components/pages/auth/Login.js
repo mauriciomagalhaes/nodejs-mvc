@@ -11,14 +11,17 @@ import { Context } from '../../../context/UserContext';
 function Login(){
 
     const [user, setUser] = useState({});
+
     const { login } = useContext(Context);
 
     function handleChange(e){
         setUser({...user,[e.target.name]: e.target.value});
+        console.log(user);
     }
 
     function handleSubmit(e){
-        e.prevendDefault();
+        e.preventDefault();
+        //console.log(user)
         login(user);
     }
 
@@ -36,7 +39,7 @@ function Login(){
                 <Input
                     text="Senha"
                     type="password"
-                    name="senha"
+                    name="password"
                     placeholder="Digite sua senha"
                     handleOnChange={handleChange}
                 />

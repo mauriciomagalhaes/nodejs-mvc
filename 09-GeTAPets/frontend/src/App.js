@@ -5,13 +5,14 @@ import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import Container from './components/layout/Container';
 import Message from './components/layout/Message';
+
 /* Pages */
 import Login from './components/pages/auth/Login';
 import Register from './components/pages/auth/Register';
 import Home from './components/pages/home';
+import Profile from './components/pages/User/Profile';
 
 /* Context */
-
 import { UserProvider } from './context/UserContext';
 
 function App() {
@@ -24,7 +25,8 @@ function App() {
             <Routes> {/* switch */}
               <Route path="/" element={<Home/>} />
               <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />   
+              <Route path="/register" element={<Register />} />
+              <Route path="/user/profile" element={<Profile />} />      
             </Routes>
           </Container>
         <Footer />
