@@ -46,7 +46,6 @@ function Profile(){
             formData.append(key, user[key])     
         })
 
-        console.log(user._id)
         const data = await api.patch(`/users/edit/${user._id}`, formData, {
             headers: {
                 Authorization: `Bearer ${JSON.parse(token)}`,
