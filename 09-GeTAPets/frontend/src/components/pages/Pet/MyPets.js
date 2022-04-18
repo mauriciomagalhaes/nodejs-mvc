@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 function MyPets(){
 
@@ -6,10 +7,13 @@ function MyPets(){
 
     return (
         <section>
-            <h1>MyPets</h1>
+            <div>
+                <h1>MyPets</h1>
+                <Link to="/pet/add">Cadastrar Pet</Link>
+            </div>
             <div>
                 {pets.length > 0 && <p>Meus Pets cadastrados</p>}
-                {pets.lenght === 0 && <p>Não há pets cadastrados</p>}
+                {pets.lenght === 0 && <p>Não há Pets cadastrados</p>}
             </div>
         </section>
     );
