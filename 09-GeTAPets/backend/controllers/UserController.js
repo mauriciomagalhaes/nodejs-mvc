@@ -116,12 +116,10 @@ module.exports = class UserController{
 
         // Get user auth by token
         const user = await getUserByToken(getToken(req));
-        console.log(user)
 
-        let image = ''
-
+        // Get image
         if(req.file){
-            image = req.file.filename
+            user.image = req.file.filename
         }
 
         // Validate data
@@ -130,7 +128,6 @@ module.exports = class UserController{
         }
 
         //user.name = name;
-
         if(!email){
             return res.status(422).json({message: 'O email é obrigatório!'});
         }

@@ -1,17 +1,22 @@
+/* api */
 import api from '../../../utils/api'
 
+/* states */
 import { useState, useEffect } from 'react';
 
+/* Styles */
 import style from './Profile.module.css'
 import formStyle from '../../form/Form.module.css'
 
+/* Components */
 import Input from '../../form/Input';
-
 import useFlashMessage from '../../../hooks/useFlshMessage'
 
 function Profile(){
 
     const [user, setUser] = useState({})
+
+    const [preview, setPreview] = useState()
 
     const [token] = useState(localStorage.getItem('token') || '')
 
@@ -26,8 +31,10 @@ function Profile(){
             setUser(response.data)
         })
     }, [token])
-
+    
     function onFileChange(e){
+        console.log(e.target.files[0])
+        setPreview( e.target.files[0] )
         setUser({...user, [e.target.name]: e.target.files[0]})
     }
 
@@ -43,7 +50,8 @@ function Profile(){
         const formData = new FormData()
 
         await Object.keys(user).forEach(key => {
-            formData.append(key, user[key])     
+            formData.append(key, user[key])  
+            console.log(key, user[key])  
         })
 
         const data = await api.patch(`/users/edit/${user._id}`, formData, {
@@ -59,12 +67,18 @@ function Profile(){
         })
         setFlashMessage(data.message, msgType)
     }
-
+    
     return (
         <section>
             <div className={style.profile_header}>
                 <h1>Perfil</h1>
-                <p>Preview imagem</p>
+                {(user.image || preview) && (
+                    <img src={preview ? URL.createObjectURL(preview) 
+                    : `${process.env.REACT_APP_API}/images/users/${user.image}`
+                    } 
+                    alt={user.name}
+                 />
+                )}
             </div>
             <form onSubmit={handleSubmit} className={formStyle.form_container}>
               <Input
