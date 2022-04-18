@@ -22,7 +22,6 @@ function Navbar(){
                 <li>
                     <Link to='/'>Adotar</Link>
                 </li>
-
                 { authenticated ? (
                 <>
                    <li>
