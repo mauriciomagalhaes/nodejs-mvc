@@ -34,7 +34,7 @@ function Profile(){
     }, [token])
     
     function onFileChange(e){
-        console.log(e.target.files[0])
+        //console.log(e.target.files[0])
         setPreview( e.target.files[0] )
         setUser({...user, [e.target.name]: e.target.files[0]})
     }
